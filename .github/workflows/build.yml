@@ -141,23 +141,26 @@ jobs:
           tar -zxf v0.25.10.tar.gz && cd tree-sitter-0.25.10
           make -j4
           sudo make install
+      - name: Remove Dynamic Libraries
+        run: |
+          sudo find /usr/local/lib -name '*.dylib' -delete
       - name: Install Emacs
         run: |
           git clone -b 'feature/igc' --depth 1 https://github.com/emacs-mirror/emacs.git
           cd emacs && ./autogen.sh
-          CFLAGS='-O3 -static' ./configure --disable-gc-mark-trace    \
-                                           --without-all              \
-                                           --with-gmp                 \
-                                           --with-gnutls              \
-                                           --with-mps                 \
-                                           --with-native-image-api    \
-                                           --with-ns                  \
-                                           --with-small-ja-dic        \
-                                           --with-toolkit-scroll-bars \
-                                           --with-tree-sitter         \
-                                           --with-xml2                \
-                                           --with-xwidgets            \
-                                           --with-zlib
+          ./configure --disable-gc-mark-trace    \
+                      --without-all              \
+                      --with-gmp                 \
+                      --with-gnutls              \
+                      --with-mps                 \
+                      --with-native-image-api    \
+                      --with-ns                  \
+                      --with-small-ja-dic        \
+                      --with-toolkit-scroll-bars \
+                      --with-tree-sitter         \
+                      --with-xml2                \
+                      --with-xwidgets            \
+                      --with-zlib
           make -j4 && make install
           tar -Jcf emacs-igc-static-mach-arm64.tar.xz nextstep/Emacs.app
       - uses: actions/upload-artifact@v4
