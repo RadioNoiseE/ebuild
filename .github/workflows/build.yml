@@ -52,7 +52,7 @@ jobs:
         run: |
           curl -O https://ftp.gnu.org/gnu/texinfo/texinfo-7.2.tar.gz
           tar -zxf texinfo-7.2.tar.gz && cd texinfo-7.2
-          ./configure --disable-shared && make -j4
+          ./configure && make -j4
           sudo make install
       - name: Install GNU Libunistring
         run: |
