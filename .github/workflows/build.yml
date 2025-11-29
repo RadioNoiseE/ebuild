@@ -108,7 +108,7 @@ jobs:
           tar -zxf libidn2-2.3.8.tar.gz && cd libidn2-2.3.8
           ./configure --disable-shared && make -j4
           sudo make install
-      - name: Install Gnutls
+      - name: Install GnuTLS
         run: |
           curl -O https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.11.tar.xz
           tar -Jxf gnutls-3.8.11.tar.xz && cd gnutls-3.8.11
