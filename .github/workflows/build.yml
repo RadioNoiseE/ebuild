@@ -136,7 +136,7 @@ jobs:
                                       PKG_CONFIG='pkg-config -static'  \
                                       --disable-gc-mark-trace          \
                                       --without-all                    \
-                                      --with_compress_install          \
+                                      --with-compress-install          \
                                       --with-gmp                       \
                                       --with-gnutls                    \
                                       --with-modules                   \
