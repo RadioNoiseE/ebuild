@@ -122,6 +122,12 @@ jobs:
           make -j4
           sudo make install
           sudo find /usr/local/lib -name 'libtree-sitter*.dylib' -delete
+      - name: Install GNU Gzip
+        run: |
+          curl -O https://ftp.gnu.org/gnu/gzip/gzip-1.14.tar.gz
+          tar -zxf gzip-1.14.tar.gz && cd gzip-1.14
+          ./configure && make -j4
+          sudo make install
       - name: Install Emacs
         run: |
           git clone -b 'feature/igc' --depth 1 https://github.com/emacs-mirror/emacs.git
@@ -130,6 +136,7 @@ jobs:
                                       PKG_CONFIG='pkg-config -static'  \
                                       --disable-gc-mark-trace          \
                                       --without-all                    \
+                                      --with_compress_install          \
                                       --with-gmp                       \
                                       --with-gnutls                    \
                                       --with-modules                   \
