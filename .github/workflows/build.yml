@@ -122,6 +122,12 @@ jobs:
           make -j4
           sudo make install
           sudo find /usr/local/lib -name 'libtree-sitter*.dylib' -delete
+      - name: Install SQLite3
+        run: |
+          curl -O https://www.sqlite.org/2025/sqlite-autoconf-3510100.tar.gz
+          tar -zxf sqlite-autoconf-3510100.tar.gz && cd sqlite-autoconf-3510100
+          ./configure --disable-shared && make -j4
+          sudo make install
       - name: Install GNU Gzip
         run: |
           curl -LO https://ftpmirror.gnu.org/gnu/gzip/gzip-1.14.tar.gz
@@ -146,6 +152,7 @@ jobs:
                                       --with-small-ja-dic              \
                                       --with-threads                   \
                                       --with-toolkit-scroll-bars       \
+                                      --with-sqlite3                   \
                                       --with-tree-sitter               \
                                       --with-xml2                      \
                                       --with-zlib
