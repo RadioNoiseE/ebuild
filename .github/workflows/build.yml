@@ -35,19 +35,19 @@ jobs:
           tar -zxf automake-1.18.tar.gz && cd automake-1.18
           ./configure && make -j4
           sudo make install
-      - name: Install Pkgconf
-        run: |
-          curl -O https://distfiles.ariadne.space/pkgconf/pkgconf-2.5.1.tar.gz
-          tar -zxf pkgconf-2.5.1.tar.gz && cd pkgconf-2.5.1
-          ./configure --disable-shared && make -j4
-          sudo make install
-          sudo ln -s /usr/local/bin/pkgconf /usr/local/bin/pkg-config
       - name: Install GNU Libtool
         run: |
           curl -LO https://ftpmirror.gnu.org/gnu/libtool/libtool-2.5.4.tar.gz
           tar -zxf libtool-2.5.4.tar.gz && cd libtool-2.5.4
           ./configure --disable-shared && make -j4
           sudo make install
+      - name: Install Pkgconf
+        run: |
+          curl -LO https://github.com/pkgconf/pkgconf/archive/refs/tags/pkgconf-2.5.1.tar.gz
+          tar -zxf pkgconf-2.5.1.tar.gz && cd pkgconf-pkgconf-2.5.1
+          ./autogen.sh && ./configure --disable-shared && make -j4
+          sudo make install
+          sudo ln -s /usr/local/bin/pkgconf /usr/local/bin/pkg-config
       - name: Install GNU Texinfo
         run: |
           curl -LO https://ftpmirror.gnu.org/gnu/texinfo/texinfo-7.2.tar.gz
