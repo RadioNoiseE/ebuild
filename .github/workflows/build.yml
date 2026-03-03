@@ -160,6 +160,7 @@ jobs:
                                       PKG_CONFIG='pkgconf -static'  \
                                       --disable-gc-mark-trace       \
                                       --without-all                 \
+                                      --with-file-notification=yes  \
                                       --with-compress-install       \
                                       --with-gmp                    \
                                       --with-gnutls                 \
