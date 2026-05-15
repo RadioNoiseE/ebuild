@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
       - name: Uninstall Homebrew
         run: |
@@ -25,14 +25,14 @@ jobs:
           sudo make install
       - name: Install GNU Autoconf
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/autoconf/autoconf-2.72.tar.xz
-          tar -Jxf autoconf-2.72.tar.xz && cd autoconf-2.72
+          curl -LO https://ftpmirror.gnu.org/gnu/autoconf/autoconf-2.73.tar.xz
+          tar -Jxf autoconf-2.73.tar.xz && cd autoconf-2.73
           ./configure && make -j4
           sudo make install
       - name: Install GNU Automake
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/automake/automake-1.18.tar.xz
-          tar -Jxf automake-1.18.tar.xz && cd automake-1.18
+          curl -LO https://ftpmirror.gnu.org/gnu/automake/automake-1.18.1.tar.xz
+          tar -Jxf automake-1.18.1.tar.xz && cd automake-1.18.1
           ./configure && make -j4
           sudo make install
       - name: Install GNU Libtool
@@ -87,8 +87,8 @@ jobs:
           sudo make install
       - name: Install Libxml2
         run: |
-          curl -O https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.2.tar.xz
-          tar -Jxf libxml2-2.15.2.tar.xz && cd libxml2-2.15.2
+          curl -O https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.3.tar.xz
+          tar -Jxf libxml2-2.15.3.tar.xz && cd libxml2-2.15.3
           ./configure --disable-shared && make -j4
           sudo make install
       - name: Install GNU Libgmp
@@ -99,8 +99,8 @@ jobs:
           sudo make install
       - name: Install Libnettle
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/nettle/nettle-3.10.2.tar.gz
-          tar -zxf nettle-3.10.2.tar.gz && cd nettle-3.10.2
+          curl -LO https://ftpmirror.gnu.org/gnu/nettle/nettle-4.0.tar.gz
+          tar -zxf nettle-4.0.tar.gz && cd nettle-4.0
           ./configure --disable-shared && make -j4
           sudo make install
       - name: Install Libidn2
@@ -111,14 +111,14 @@ jobs:
           sudo make install
       - name: Install GnuTLS
         run: |
-          curl -O https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.12.tar.xz
-          tar -Jxf gnutls-3.8.12.tar.xz && cd gnutls-3.8.12
+          curl -O https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz
+          tar -Jxf gnutls-3.8.13.tar.xz && cd gnutls-3.8.13
           ./configure --disable-shared --with-included-libtasn1 --without-p11-kit && make -j4
           sudo make install
       - name: Install Libtreesitter
         run: |
-          curl -LO https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.26.7.tar.gz
-          tar -zxf v0.26.7.tar.gz && cd tree-sitter-0.26.7
+          curl -LO https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.26.8.tar.gz
+          tar -zxf v0.26.8.tar.gz && cd tree-sitter-0.26.8
           make -j4
           sudo make install
           sudo find /usr/local/lib -name 'libtree-sitter*.dylib' -delete
@@ -153,39 +153,8 @@ jobs:
           ditto nextstep/Emacs.app Emacs.app
           echo version=$(Emacs.app/Contents/MacOS/Emacs --version | sed -nE 's/^GNU Emacs ([0-9.]+).*/\1/p') >> $GITHUB_ENV
           tar -Jcf Emacs.tar.xz Emacs.app
-      - name: Build Emacs with MPS
-        run: |
-          git clone -b 'feature/igc3' --depth 1 https://github.com/emacs-mirror/emacs.git emacs-igc
-          cd emacs-igc && sed -i '' '/darwin/ s/lncurses/lncursesw/g' configure.ac
-          ./autogen.sh && ./configure CFLAGS='-O2 -g0 -flto'          \
-                                      PKG_CONFIG='pkgconf -static'    \
-                                      --disable-gc-mark-trace         \
-                                      --without-all                   \
-                                      --with-compress-install         \
-                                      --with-file-notification=kqueue \
-                                      --with-gmp                      \
-                                      --with-gnutls                   \
-                                      --with-modules                  \
-                                      --with-mps                      \
-                                      --with-native-image-api         \
-                                      --with-ns                       \
-                                      --with-small-ja-dic             \
-                                      --with-threads                  \
-                                      --with-toolkit-scroll-bars      \
-                                      --with-tree-sitter              \
-                                      --with-xml2                     \
-                                      --with-zlib
-          make -j4 && make install
-          ditto nextstep/Emacs.app Emacs.app
-          echo igc_version=$(Emacs.app/Contents/MacOS/Emacs --version | sed -nE 's/^GNU Emacs ([0-9.]+).*/\1/p') >> $GITHUB_ENV
-          tar -Jcf Emacs-MPS.tar.xz Emacs.app
       - name: Upload Emacs
         uses: actions/upload-artifact@v6
         with:
           name: Emacs-${{ env.version }}
           path: emacs/Emacs.tar.xz
-      - name: Upload Emacs with MPS
-        uses: actions/upload-artifact@v6
-        with:
-          name: Emacs-MPS-${{ env.igc_version }}
-          path: emacs-igc/Emacs-MPS.tar.xz
