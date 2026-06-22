@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Uninstall Homebrew
         run: |
-          curl -O https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh
+          curl -fO https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh --retry 3
           sudo chmod +x uninstall.sh
           sudo env NONINTERACTIVE=1 ./uninstall.sh
           sudo rm -rf /opt/homebrew
@@ -19,112 +19,112 @@ jobs:
           eval $(/usr/libexec/path_helper -s)
       - name: Install GNU M4
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/m4/m4-1.4.21.tar.xz
+          curl -fLO https://ftpmirror.gnu.org/gnu/m4/m4-1.4.21.tar.xz --retry 3
           tar -Jxf m4-1.4.21.tar.xz && cd m4-1.4.21
           ./configure && make -j4
           sudo make install
       - name: Install GNU Autoconf
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/autoconf/autoconf-2.73.tar.xz
+          curl -fLO https://ftpmirror.gnu.org/gnu/autoconf/autoconf-2.73.tar.xz --retry 3
           tar -Jxf autoconf-2.73.tar.xz && cd autoconf-2.73
           ./configure && make -j4
           sudo make install
       - name: Install GNU Automake
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/automake/automake-1.18.1.tar.xz
+          curl -fLO https://ftpmirror.gnu.org/gnu/automake/automake-1.18.1.tar.xz --retry 3
           tar -Jxf automake-1.18.1.tar.xz && cd automake-1.18.1
           ./configure && make -j4
           sudo make install
       - name: Install GNU Libtool
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/libtool/libtool-2.5.4.tar.xz
+          curl -fLO https://ftpmirror.gnu.org/gnu/libtool/libtool-2.5.4.tar.xz --retry 3
           tar -Jxf libtool-2.5.4.tar.xz && cd libtool-2.5.4
           ./configure --disable-shared && make -j4
           sudo make install
       - name: Install Pkgconf
         run: |
-          curl -LO https://github.com/pkgconf/pkgconf/archive/refs/tags/pkgconf-2.5.1.tar.gz
+          curl -fLO https://github.com/pkgconf/pkgconf/archive/refs/tags/pkgconf-2.5.1.tar.gz --retry 3
           tar -zxf pkgconf-2.5.1.tar.gz && cd pkgconf-pkgconf-2.5.1
           ./autogen.sh && ./configure --disable-shared && make -j4
           sudo make install
           sudo ln -s /usr/local/bin/pkgconf /usr/local/bin/pkg-config
       - name: Install GNU Texinfo
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/texinfo/texinfo-7.3.tar.xz
+          curl -fLO https://ftpmirror.gnu.org/gnu/texinfo/texinfo-7.3.tar.xz --retry 3
           tar -Jxf texinfo-7.3.tar.xz && cd texinfo-7.3
           ./configure && make -j4
           sudo make install
       - name: Install GNU Libiconv
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/libiconv/libiconv-1.19.tar.gz
+          curl -fLO https://ftpmirror.gnu.org/gnu/libiconv/libiconv-1.19.tar.gz --retry 3
           tar -zxf libiconv-1.19.tar.gz && cd libiconv-1.19
           ./configure --disable-shared && make -j4
           sudo make install
       - name: Install GNU Libunistring
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz
+          curl -fLO https://ftpmirror.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.xz --retry 3
           tar -Jxf libunistring-1.4.2.tar.xz && cd libunistring-1.4.2
           ./configure --disable-shared && make -j4
           sudo make install
       - name: Install GNU Gettext
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/gettext/gettext-0.26.tar.xz
+          curl -fLO https://ftpmirror.gnu.org/gnu/gettext/gettext-0.26.tar.xz --retry 3
           tar -Jxf gettext-0.26.tar.xz && cd gettext-0.26
           ./configure --disable-shared && make -j4
           sudo make install
       - name: Install GNU Ncurses
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz
+          curl -fLO https://ftpmirror.gnu.org/gnu/ncurses/ncurses-6.6.tar.gz --retry 3
           tar -zxf ncurses-6.6.tar.gz && cd ncurses-6.6
           ./configure --disable-shared && make -j4
           sudo make install
           sudo ln -s /usr/local/include/ncursesw/curses.h /usr/local/include/ncurses.h
       - name: Install Zlib
         run: |
-          curl -LO https://github.com/madler/zlib/releases/download/v1.3.2/zlib-1.3.2.tar.xz
+          curl -fLO https://github.com/madler/zlib/releases/download/v1.3.2/zlib-1.3.2.tar.xz --retry 3
           tar -Jxf zlib-1.3.2.tar.xz && cd zlib-1.3.2
           ./configure --static && make -j4
           sudo make install
       - name: Install Libxml2
         run: |
-          curl -O https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.3.tar.xz
+          curl -fO https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.3.tar.xz --retry 3
           tar -Jxf libxml2-2.15.3.tar.xz && cd libxml2-2.15.3
           ./configure --disable-shared && make -j4
           sudo make install
       - name: Install GNU Libgmp
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz
+          curl -fLO https://ftpmirror.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz --retry 3
           tar -Jxf gmp-6.3.0.tar.xz && cd gmp-6.3.0
           ./configure --disable-shared && make -j4
           sudo make install
       - name: Install Libnettle
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/nettle/nettle-4.0.tar.gz
+          curl -fLO https://ftpmirror.gnu.org/gnu/nettle/nettle-4.0.tar.gz --retry 3
           tar -zxf nettle-4.0.tar.gz && cd nettle-4.0
           ./configure --disable-shared && make -j4
           sudo make install
       - name: Install Libidn2
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz
+          curl -fLO https://ftpmirror.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz --retry 3
           tar -zxf libidn2-2.3.8.tar.gz && cd libidn2-2.3.8
           ./configure --disable-shared && make -j4
           sudo make install
       - name: Install GnuTLS
         run: |
-          curl -O https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz
+          curl -fO https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz --retry 3
           tar -Jxf gnutls-3.8.13.tar.xz && cd gnutls-3.8.13
           ./configure --disable-shared --with-included-libtasn1 --without-p11-kit && make -j4
           sudo make install
       - name: Install Libtreesitter
         run: |
-          curl -LO https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.26.8.tar.gz
+          curl -fLO https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.26.8.tar.gz --retry 3
           tar -zxf v0.26.8.tar.gz && cd tree-sitter-0.26.8
           make -j4
           sudo make install
           sudo find /usr/local/lib -name 'libtree-sitter*.dylib' -delete
       - name: Install GNU Gzip
         run: |
-          curl -LO https://ftpmirror.gnu.org/gnu/gzip/gzip-1.14.tar.xz
+          curl -fLO https://ftpmirror.gnu.org/gnu/gzip/gzip-1.14.tar.xz --retry 3
           tar -Jxf gzip-1.14.tar.xz && cd gzip-1.14
           ./configure && make -j4
           sudo make install
