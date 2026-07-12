@@ -138,7 +138,7 @@ jobs:
                                       --without-all                   \
                                       --with-compress-install         \
                                       --with-file-notification=kqueue \
-                                      --with-gmp                      \
+                                      --with-libgmp                   \
                                       --with-gnutls                   \
                                       --with-modules                  \
                                       --with-native-image-api         \
