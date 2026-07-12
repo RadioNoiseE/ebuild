@@ -132,6 +132,7 @@ jobs:
         run: |
           git clone --depth 1 https://github.com/emacs-mirror/emacs.git
           cd emacs && sed -i '' '/darwin/ s/lncurses/lncursesw/g' configure.ac
+          curl -fO https://lists.gnu.org/archive/html/bug-gnu-emacs/2026-07/binuRsUz0ADFt.bin && git apply binuRsUz0ADFt.bin # bug 81332
           ./autogen.sh && ./configure CFLAGS='-O2 -g0 -flto'          \
                                       PKG_CONFIG='pkgconf -static'    \
                                       --disable-gc-mark-trace         \
